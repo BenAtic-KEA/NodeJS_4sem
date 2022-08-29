@@ -21,6 +21,8 @@ const number = 1;
 
 // Add the year plus the number
 const yearAndNumber = number + parseInt(year);
+// const result = +year + number;
+// const result = Number(year) + number;
 
 // The result should be 2022
 console.log(yearAndNumber);
