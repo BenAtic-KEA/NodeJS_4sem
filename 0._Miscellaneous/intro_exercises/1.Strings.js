@@ -41,7 +41,7 @@ for(let i=0; i<numbers.length; i++){
     averageNumber = sumOfNumbers / (i+1);
 }
 
-console.log(averageNumber.toFixed(5));
+console.log(averageNumber);
 
 
 
