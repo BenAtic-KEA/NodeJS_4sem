@@ -3,7 +3,7 @@
 // --------------------------------------
 // Exercise 1 - Array Positioning
 
-const letters = ["a", "b", "c"];
+const letters = ["a", "b", "c","b"];
 // show b in the console 
 for (let i = 0; i < letters.length; i++) {
 
@@ -12,7 +12,6 @@ for (let i = 0; i < letters.length; i++) {
         break;
     }
 }
-
 // --------------------------------------
 // Exercise 2 - Array Positioning
 
