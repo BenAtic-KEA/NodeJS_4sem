@@ -1,8 +1,13 @@
-const express = require("express");
+import express from "express";
+import { incrementVisitorCounter } from "./geocitiesUtil.js";
+import path from "path"
+
 const app = express();
+app.use(express.static("public"))
 
 app.get("/",(req,res) => { 
-    res.sendFile(__dirname + "/frontpage.html")
+    console.log("Visitors since the server start", incrementVisitorCounter())
+    res.sendFile(path.resolve("./public/frontpage/frontpage.html"));
 })
 
 
