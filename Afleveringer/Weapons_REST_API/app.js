@@ -1,7 +1,6 @@
 import { listOfWeapons, addWeapon } from "./weapon.js";
 import express from "express";
 import path from "path";
-import { rmSync } from "fs";
 
 const app = express();
 app.use(express.json());
