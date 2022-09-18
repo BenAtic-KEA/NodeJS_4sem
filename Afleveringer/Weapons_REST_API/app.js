@@ -1,7 +1,6 @@
 import { listOfWeapons, addWeapon } from "./weapon.js";
 import express from "express";
 import path from "path";
-import { rmSync } from "fs";
 
 const app = express();
 app.use(express.json());
@@ -17,7 +16,7 @@ app.get('/', (req, res) => {
 
 app.get('/weapons', (req, res) => {
     res.send({
-        message: `this is your arsenal to choose from 1 to ${weapons.length}:  ${weapons.map(w => w.name).join(", ")}`
+        message: `this is your arsenal to choose from 1 to ${weapons.length}: ${weapons.map(w => `[${w.id}].${w.name}`).join(", ")}`
     });
 });
 
