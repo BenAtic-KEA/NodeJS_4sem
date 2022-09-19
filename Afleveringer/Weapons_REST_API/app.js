@@ -11,8 +11,8 @@ let weapons = listOfWeapons();
 // GET
 
 app.get('/', (req, res) => {
-    res.send({ 
-        message: "You can do /weapons to see all weapons, or /weapons/{id} to get a specific weapon" 
+    res.send({
+        message: "You can do /weapons to see all weapons, or /weapons/{id} to get a specific weapon"
     })
 });
 
@@ -82,9 +82,11 @@ app.patch("/weapons/:id", (req, res) => {
     const weaponIndex = weapons.findIndex(weapon => weapon.id === reqId)
     if (weaponIndex !== -1) {
         const foundWeapon = weapons[weaponIndex];
-        const weaponToUpdate = {...foundWeapon, ...reqObj, id: reqId}
-        res.send( {data : weaponToUpdate});
-        
+        const weaponToUpdate = { ...foundWeapon, ...reqObj, id: reqId }
+        res.send({
+            data: weaponToUpdate
+        });
+
     } else {
         res.status(404).send({
             message: "we dont have the requested weapon"
