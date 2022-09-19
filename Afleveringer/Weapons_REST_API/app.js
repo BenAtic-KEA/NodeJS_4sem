@@ -6,12 +6,14 @@ const app = express();
 app.use(express.json());
 app.use(express.static("public"));
 
-let weapons = listOfWeapons().slice();
+let weapons = listOfWeapons();
 
 // GET
 
 app.get('/', (req, res) => {
-    res.send({ message: "You can do /weapons to see all weapons, or /weapons/{id} to get a specific weapon" })
+    res.send({ 
+        message: "You can do /weapons to see all weapons, or /weapons/{id} to get a specific weapon" 
+    })
 });
 
 app.get('/weapons', (req, res) => {
@@ -23,10 +25,11 @@ app.get('/weapons', (req, res) => {
 app.get('/weapons/:id', (req, res) => {
 
     const reqId = Number(req.params.id)
+    const chosenWeapon = weapons.find(weapon => weapon.id === reqId)
 
-    if (weapons.find(weapon => weapon.id === reqId)) {
-        const chosenWeapon = weapons.find(weapon => weapon.id === reqId)
+    if (chosenWeapon) {
         res.send({
+            data: chosenWeapon,
             message: `you chose ${chosenWeapon.name} as your weapon, it costs ${chosenWeapon.price}`
         });
     } else {
@@ -41,11 +44,11 @@ app.get('/weapons/:id', (req, res) => {
 app.post('/weapons', (req, res) => {
     const reqObj = req.body;
 
-    console.log(req.body);
     const newWeapon = addWeapon(reqObj.name, reqObj.price)
     weapons.push(newWeapon);
-    console.log(weapons);
-    res.send(`${newWeapon.name} is now added to the collection`);
+    res.send({
+        message: `${newWeapon.name} is now added to the collection`
+    })
 
 })
 
@@ -76,30 +79,14 @@ app.put("/weapons/:id", (req, res) => {
 app.patch("/weapons/:id", (req, res) => {
     const reqId = Number(req.params.id);
     const reqObj = req.body;
-
-    if (weapons.find(weapon => weapon.id === reqId)) {
-        const oldWeapon = Object.assign({}, weapons.find(weapon => weapon.id === reqId))
-        const weaponToEdit = weapons.find(weapon => weapon.id === reqId)
-
-        if (weaponToEdit.name !== reqObj.name && reqObj.name !== undefined) {
-            weaponToEdit.name = reqObj.name
-            res.send(
-                {
-                    message: `name of weapon id: ${weaponToEdit.id} is changed from ${oldWeapon.name} to ${weaponToEdit.name}`
-                })
-        } else if (weaponToEdit.price !== reqObj.price && reqObj.price !== undefined) {
-            weaponToEdit.price = reqObj.price;
-            res.send(
-                {
-                    message: `name is changed of weapon id: ${weaponToEdit.id} from ${oldWeapon.price} to ${weaponToEdit.price}`
-                })
-        } else {
-            res.send({
-                message: `nothing is changed`
-            })
-        }
+    const weaponIndex = weapons.findIndex(weapon => weapon.id === reqId)
+    if (weaponIndex !== -1) {
+        const foundWeapon = weapons[weaponIndex];
+        const weaponToUpdate = {...foundWeapon, ...reqObj, id: reqId}
+        res.send( {data : weaponToUpdate});
+        
     } else {
-        res.send({
+        res.status(404).send({
             message: "we dont have the requested weapon"
         });
     }
@@ -108,24 +95,20 @@ app.patch("/weapons/:id", (req, res) => {
 //Delete
 app.delete("/weapons/:id", (req, res) => {
 
-    const reqId = Number(req.params.id)
+    const reqId = Number(req.params.id);
+    const weaponIndex = weapons.findIndex(weapon => weapon.id === reqId)
 
-    if (weapons.find(weapon => weapon.id === reqId)) {
-        const chosenWeapon = Object.assign({}, weapons.find(weapon => weapon.id === reqId))
-        weapons = weapons.filter(weapon => weapon.id !== reqId);
+    if (weaponIndex !== -1) {
+        const deletedWeapon = weapons.splice(weaponIndex, 1);
         res.send(
             {
-                message: `[${chosenWeapon.id}] ${chosenWeapon.name} is now deleted from the collection`
+                data: deletedWeapon
             }
         );
     } else {
-        res.send(
-            {
-                message: "we dont have the requested weapon"
-            }
-        );
+        res.status(404).send({ message: "we dont have the requested weapon" });
+
     }
 })
-
 
 app.listen(8080, () => console.log("server is running on port", 8080));   

@@ -10,3 +10,4 @@ app.get("/weapons",(req,res) => {
     res.send({data : weaponList});
 })
 app.listen(8080, () => console.log("server is running on port", 8080));
+
