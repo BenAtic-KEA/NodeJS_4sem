@@ -11,12 +11,16 @@ app.get("/",(req,res) => {
 });
 
 app.get("/pokemon",(req,res) => {
-   res.send({data: ["Slowpoke"]}); 
+   fetch("https://pokeapi.co/api/v2/pokemon")
+   .then(response => response.json())
+   .then(result => {
+       res.send({data: result}); 
+   })
 });
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 8080;
 
-const server = app.listen(PORT | 8080,(error)=>{
+const server = app.listen(PORT,(error)=>{
     if(error) {
         console.log(error);
     }
