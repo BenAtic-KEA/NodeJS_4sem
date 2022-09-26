@@ -1,6 +1,6 @@
-const pokelist = document.getElementById("pokelist")
-
-fetch("/pokemon")
+const pokelist = document.getElementById("pokelist");
+const battle = document.getElementById("battle");
+fetch("/api/pokemon")
 .then(response => response.json())
 .then((result)=> {
         result.data.results.forEach(pokemon => {
@@ -12,3 +12,10 @@ fetch("/pokemon")
                 pokelist.appendChild(pokemonIndividualDiv);
         })
 })
+
+
+/*
+setTimeout(() => {
+    window.location.replace("/battle")
+},3000);
+*/
