@@ -14,11 +14,11 @@ app.get("/pokemon",(req,res) => {
    res.send({data: ["Slowpoke"]}); 
 });
 
+const PORT = process.env.PORT
 
-
-
-
-
-
-
-app.listen(8080,()=> console.log(`server is running on port`, 8080));
+const server = app.listen(PORT | 8080,(error)=>{
+    if(error) {
+        console.log(error);
+    }
+    console.log(`server is running on port`, server.address().port)
+});
