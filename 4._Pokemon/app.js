@@ -1,18 +1,26 @@
 import express from "express";
-import path from "path";
+import { renderPage, battlePage, contactpagePage } from "./util/templateEngine.js";
 const app = express();
 app.use(express.json());
 
 // gør det muligt for client at få fat i filerne i den givent mappe.
 app.use(express.static("public"));
+const frontpagePage = renderPage("frontpage/frontpage.html",{tabTitle : "Pokemon", cssLink :`<link rel="stylesheet" href="./pages/frontpage/frontpage.css"` })
 
 app.get("/",(req,res) => {
-    res.sendFile(path.resolve("./public/frontpage/frontpage.html"));
+    res.send(frontpagePage);
 });
 
-app.get("/battle",(req,res) => {
-    res.sendFile(path.resolve("public/battle/battle.html"))
+app.get("/battle/:pokemonName",(req,res) => {
+    res.send(battlePage.replace("%%TAB_TITLE%%", `Battle ${req.params.pokemonName}`));
 })
+app.get("/battle",(req,res) => {
+    const randomPokemon = "pikachu"; // fetch
+    res.redirect(`/battle/${randomPokemon}`)
+})
+app.get("/contact", (req,res) => {
+    res.send(contactpagePage)
+}) 
 
 app.get("/api/pokemon",(req,res) => {
    fetch("https://pokeapi.co/api/v2/pokemon")

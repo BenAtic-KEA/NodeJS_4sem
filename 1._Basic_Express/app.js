@@ -34,6 +34,21 @@ app.get("/actors",(req,res) => {
   });
 });
 
+app.get("/lookunderbed", (req,res) => {
+  
+  if(req.query.flashlight){
+    res.send({message: "You are safe!"})
+  } else {
+    res.redirect("/monsters");
+  }
+  
+})
+
+app.get("/monsters",(req,res) => {
+  res.send({message: "uh oh! scary monsters!!!"})
+})
+
+
 app.get("/Cups", (req,res) => {
   res.send({
     type : "porcelain",
