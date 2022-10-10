@@ -1,12 +1,12 @@
 <script>
-    const name = "Mark"
-    const todaysDate = new Date();
+    import Date from "./componets/Date.svelte";
+    const name = "Mark";
 </script>
 
 <h2 id="page-title">First Svelte Project</h2>
 
 <div> More Content for {name}</div>
-<h4>Current Date: {todaysDate}</h4>
+<Date></Date>
 
 <style>
   #page-title{
