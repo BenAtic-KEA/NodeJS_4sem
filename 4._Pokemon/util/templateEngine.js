@@ -26,3 +26,8 @@ const contactpage = fs.readFileSync("./public/pages/contactpage/contactpage.html
 export const contactpagePage = navComponent.replace("%%TAB_TITLE%%", "contacts").replace("%%PAGE_CSS_LINK%%","") + contactpage + footerComponent;
 
 
+export function injectData(pageString, data) {
+    const brokenUpHTML = pageString.split("</body>");
+    const variableName = Object.keys({data})[0];
+    return brokenUpHTML[0] + `<script>const ${variableName} = ${JSON.stringify(data)}</script></body>` + brokenUpHTML[1];
+}
