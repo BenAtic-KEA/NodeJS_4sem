@@ -3,11 +3,12 @@ import { renderPage, injectData } from "./util/templateEngine.js";
 const app = express();
 app.use(express.json());
 
+import pokemonRouter from "./routers/pokemonRouter.js"
 // gør det muligt for client at få fat i filerne i den givent mappe.
 app.use(express.static("public"));
-
+app.use(pokemonRouter);
 const frontpagePage = renderPage("frontpage/frontpage.html",{tabTitle : "Pokemon", cssLink :`<link rel="stylesheet" href="./pages/frontpage/frontpage.css"` })
-const battlePage = renderPage("battle/Battle.html",{tabTitle :"", cssLink: `<link rel="stylesheet" href="./pages/battle/battle.css"`})
+const battlePage = renderPage("battle/Battle.html",{tabTitle :"Battle", cssLink: `<link rel="stylesheet" href="./pages/battle/battle.css"`})
 
 
 app.get("/",(req,res) => {
@@ -15,24 +16,20 @@ app.get("/",(req,res) => {
 });
 
 app.get("/battle/:pokemonName",(req,res) => {
+
     res.send(battlePage.replace("%%TAB_TITLE%%", `Battle ${req.params.pokemonName}`));
 })
+
+const randomPokemon = ["Pikachu","Slowpoke","ditto"];
 app.get("/battle",(req,res) => {
-    const randomPokemon = "pikachu"; // fetch
-    let battlePageWithData = injectData(battlePage,randomPokemon);
+    let currentPokemon = randomPokemon[Math.floor(Math.random()*4)] 
+    let battlePageWithData = injectData(battlePage,moves);
+    res.redirect(`battle/${currentPokemon}`)
     res.send(battlePageWithData.replace("%%TAB_TITLE%%"),`Battle ${req.params.pokemonName}`)
 })
 app.get("/contact", (req,res) => {
     res.send(contactpagePage)
 }) 
-
-app.get("/api/pokemon",(req,res) => {
-   fetch("https://pokeapi.co/api/v2/pokemon")
-   .then(response => response.json())
-   .then(result => {
-       res.send({data: result}); 
-   })
-});
 
 const PORT = process.env.PORT || 8080;
 
