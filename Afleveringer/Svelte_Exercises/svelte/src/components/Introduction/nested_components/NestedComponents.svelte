@@ -1,0 +1,1 @@
+<p>this is a paragraph nested in the styling component</p>
