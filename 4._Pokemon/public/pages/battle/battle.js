@@ -22,6 +22,21 @@ function getPokemonData(pokemonName) {
             }
 
         })
+
+        const body = {
+            pokemonName,
+            iWon
+        }
+
+        fetch("/api/battles",{
+            method:"POST",
+            body: JSON.stringify({body}),
+            headers: {
+                "Content-type": "application/json"
+            }
+        })
 }
+
+
 
 
