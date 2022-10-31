@@ -5,7 +5,11 @@
     export let pets
     export let parents
 
-// create a function that is called *AlwaysSayHi and make the child always say hi to the parent when greeting
+    import { fridgeMessageStore } from "../../store/fridgeBulletinStore.js";
+
+    function handleEraseFridgeBulletin(){
+        fridgeMessageStore.set("Write your message...")
+    }
 
     function handleAlwaysSayHi(){
         console.log('Hi!')
@@ -17,6 +21,7 @@
 </script>
 
 <h1>Hi I'm {name}</h1>
+<p on:click={handleEraseFridgeBulletin}>Erase the fridge bulletin</p>
 {#each children as child}
 <Child parentName={name} onAlwaysSayHi={handleAlwaysSayHi} onTellILoveYou = {handleTellILoveYou} child = {child} pets ={pets}/>
 {/each}
