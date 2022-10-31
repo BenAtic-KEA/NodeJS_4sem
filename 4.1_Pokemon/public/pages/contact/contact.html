@@ -3,13 +3,13 @@
 
 <form action="/api/contact" method="POST">
     <label for>Name</label>
-    <input id="name" placeholder="name">
+    <input name="name" id="name" placeholder="name" value="Mark">
 
     <label for>Email</label>
-    <input id="email" type="email" placeholder="email">
+    <input id="email" name="email" type="email" placeholder="email" value="mak@gmail.com">
 
     <label for="message">Message</label>
-    <textarea placeholder="message" cols="30" rows="15"></textarea>
+    <textarea placeholder="message" name="message" cols="30" rows="15">This is a message, i like your website great battles</textarea>
 
     <button type="submit">Submit Feedback</button>
 </form>
