@@ -21,7 +21,13 @@
 </script>
 
 <h1>Hi I'm {name}</h1>
-<p on:click={handleEraseFridgeBulletin}>Erase the fridge bulletin</p>
+<p class="erase-fridge-bulletin-div" on:click={handleEraseFridgeBulletin}>Erase the fridge bulletin</p>
 {#each children as child}
 <Child parentName={name} onAlwaysSayHi={handleAlwaysSayHi} onTellILoveYou = {handleTellILoveYou} child = {child} pets ={pets}/>
 {/each}
+
+<style>
+    .erase-fridge-bulletin-div{
+        
+    }
+</style>
