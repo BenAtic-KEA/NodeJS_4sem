@@ -1,17 +1,18 @@
 import Router from 'express'
-
+import { sendAutoMail } from '../util/sendmail.js';
 const router = Router();
 
 const contactMessages = {
     id: null,
-    message: ""
+    message: "",
+    email: ""
 }
 
-router.post('/api/contact', (req, res) => {
-    
+router.post('/api/contact', async (req, res) => {
     console.log(req.body);
-    res.send(req.body);
-} )
+
+    const msg = await sendAutoMail({email:req.body.email, name:req.body.name})
+    res.send(msg);
+})
 
 export default router;
-

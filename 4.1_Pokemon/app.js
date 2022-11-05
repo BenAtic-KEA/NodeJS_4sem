@@ -56,8 +56,6 @@ app.get("/contact", (req, res) => {
     res.send(contactPage);
 });
 
-
-
 const PORT = process.env.PORT || 8080;
 
 const server = app.listen(PORT, (error) => {
