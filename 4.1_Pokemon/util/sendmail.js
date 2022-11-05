@@ -1,6 +1,10 @@
 import nodemailer from "nodemailer";
 
-export async function sendAutoMail(contact={email:"email", name:"Anonymous"}){
+// Indeholder default msg, men det er muligt at videregive en anden msg.
+export async function sendAutoMail(contact={email:"email", name:"Anonymous", subject:"", text:""}){
+
+    const defaultText = "Your mail is notified and we will reply as soon as possible"
+    const defaultSubject = "AUTO-Reply - Thanks for your mail"
 
     try {
         
@@ -14,8 +18,8 @@ export async function sendAutoMail(contact={email:"email", name:"Anonymous"}){
             port: 587,
             secure: false, // true for 465, false for other ports
             auth: {
-                user: testAccount.user, // generated ethereal user
-                pass: testAccount.pass, // generated ethereal password
+                user: testAccount.user, // generated ethereal user          ---- kan ændres til env. variable hvis rigtig account haves
+                pass: testAccount.pass, // generated ethereal password      ---- kan ændres til env. variable hvis rigtig account haves
             },
         });
         
@@ -23,8 +27,8 @@ export async function sendAutoMail(contact={email:"email", name:"Anonymous"}){
         let info = await transporter.sendMail({
             from: 'My first Nodemailer" <First_Mailer@mail.com>', // sender address
             to: contact.email, // list of receivers
-            subject: "AUTO-Reply - Thanks for your mail", // Subject line
-            text: `Hello ${contact.name}\n \n Your mail is notified and we will reply as soon as possible. \n \n have a nice day!`, // plain text body
+            subject: defaultSubject, // Subject line
+            text: `Hello ${contact.name}\n \n ${contact.text || defaultText} \n \n have a nice day!`, // plain text body
         });
         
         console.log("Message sent: %s", info.messageId);
