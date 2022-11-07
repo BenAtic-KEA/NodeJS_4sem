@@ -6,6 +6,15 @@ app.use(helmet());
 
 import { rateLimit } from "express-rate-limit";
 
+import session from "express-session"
+
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false } // HTTP = false --- HTTPS = true
+  }));
+
 const routeLimiter = rateLimit({
     windowMs: 10 * 60 * 1000, // 15 minutes
 	max: 80, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
@@ -21,8 +30,6 @@ const frontdoorLimiter = rateLimit({
     legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });
 app.use("/frontdoor", frontdoorLimiter)
-
-app.use("/frontdoor", frontDoorLimiter)
 
 function ipLogger(req,res,next){
     console.log(req.ip);
@@ -63,6 +70,11 @@ app.get("/room",guidingButler,(req,res,next) => {
     console.log("Room 2")
     res.send({message:"You are in room 2"});
 });
+
+import popcornRouter from "./routers/popcornRouter.js";
+app.use(popcornRouter)
+
+
 
 app.get("*", (req,res) => {
     res.send(`<h1>404</h1> <br> <br> <h3> Could not find the page`)
