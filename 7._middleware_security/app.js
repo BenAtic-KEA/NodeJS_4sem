@@ -1,3 +1,7 @@
+import dotenv from 'dotenv'
+dotenv.config();
+
+console.log(process.env)
 import express from "express";
 const app = express();
 
@@ -9,7 +13,7 @@ import { rateLimit } from "express-rate-limit";
 import session from "express-session"
 
 app.use(session({
-    secret: 'keyboard cat',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false } // HTTP = false --- HTTPS = true
