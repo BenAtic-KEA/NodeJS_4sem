@@ -1,1 +1,0 @@
-<h3>Come inside and see our animals!</h3>

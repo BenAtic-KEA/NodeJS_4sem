@@ -1,1 +1,0 @@
-<h3>we got all kind of animals, this is the list:</h3>

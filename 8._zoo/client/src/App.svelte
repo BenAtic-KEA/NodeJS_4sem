@@ -1,8 +1,9 @@
 <script>
-  import Home from "./components/Pages/Home/Home.svelte";
   import {Router, Link, Route} from "svelte-navigator";
-    import Entrance from "./components/Pages/Entrance/Entrance.svelte";
-    import Animals from "./components/Pages/Animals/Animals.svelte";
+  import Home from "./Pages/Home/Home.svelte";
+  import Entrance from "./Pages/Entrance/Entrance.svelte";
+    import Animals from "./Pages/Animals/Animals.svelte";
+  
   
 </script>
 
