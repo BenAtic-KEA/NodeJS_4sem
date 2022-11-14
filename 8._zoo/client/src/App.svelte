@@ -1,6 +1,9 @@
 <script>
+  import Home from "./components/Pages/Home/Home.svelte";
   import {Router, Link, Route} from "svelte-navigator";
-  import Home from "./Pages/Home/Home.svelte";
+    import Entrance from "./components/Pages/Entrance/Entrance.svelte";
+    import Animals from "./components/Pages/Animals/Animals.svelte";
+  
 </script>
 
 <Router>
@@ -11,5 +14,7 @@
   </nav>
   <div>
     <Route path="/"><Home /></Route>
+    <Route path="/entrance"><Entrance /></Route>
+    <Route path="/animals"><Animals /></Route>
   </div>
 </Router>
