@@ -1,12 +1,14 @@
 <script>
-    import { BASE_URL } from "src/store/globals";
+    import { onMount } from "svelte";
+    import { BASE_URL } from "../../store/globals";
     let animals = [];
     async function fetchAnimals(){
-        const response = await fetch(BASE_URL + "/api/animals")
+        const response = await fetch(`${$BASE_URL}/api/animals`)
         const data = await response.json();
-        animals = data;
+        animals = data.data;
     }
     fetchAnimals();
+    onMount(fetchAnimals);
 </script>
 
 <h3>we got all kind of animals, this is the list:</h3>
