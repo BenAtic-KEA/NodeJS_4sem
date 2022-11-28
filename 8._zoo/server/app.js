@@ -13,6 +13,11 @@ app.use(cors());
 import animalsRouter from "./routers/animalsRouter.js";
 app.use(animalsRouter);
 
+import animalFeedTypes from "./routers/animalFeedTypesRouter.js"
+app.use(animalFeedTypes);
+
+import animalFeedStock from "./routers/animalFeedStockRouter.js"
+app.use(animalFeedStock);
 
 const PORT = 8080 || process.env.PORT
 app.listen(PORT, () => console.log(`Server is running on port`, PORT));
